@@ -1,20 +1,22 @@
 import React, {useState, useEffect} from 'react';
 import Memory from "../components/Memory";
-import {fetchMemories} from "../axios/index.js";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchMemories} from '../actions/memoryActions'
 import {Spinner, Row, Col} from "react-bootstrap";
 
 const HomeScreen = () => {
 
-    const [memories, setMemories] = useState([])
+    const dispatch = useDispatch()
+    const memories = useSelector((state) => state.memories)
 
     useEffect(() => {
-        const getMemories = async () => {
-            const {data} = await fetchMemories()
-            console.log(data)
-            setMemories(data)
+        //Memories bos ise fetchMemories()
+        if (!memories[0]){
+            dispatch(fetchMemories())
         }
-        getMemories()
-    }, [])
+    }, [dispatch])
+
+
 
     return (
         <>
@@ -23,16 +25,16 @@ const HomeScreen = () => {
                 <Row>
                     {
                         memories.map((memory) => (
-                        <Col
-                        sm={12}
-                        md={6}
-                        lg={4}
-                        xl={3}
-                        className='m-auto'
-                        key={memory._id}>
-                            <Memory memory={memory}></Memory>
+                            <Col
+                                sm={12}
+                                md={6}
+                                lg={4}
+                                xl={3}
+                                className='m-auto'
+                                key={memory._id}>
+                                <Memory memory={memory}></Memory>
 
-                        </Col>
+                            </Col>
                         ))
                     }
                 </Row>

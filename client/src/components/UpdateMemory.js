@@ -2,10 +2,12 @@ import React, {useEffect, useState} from 'react';
 import ReactFileBase64 from 'react-file-base64'
 import {Form, Button} from 'react-bootstrap'
 import {useNavigate} from "react-router-dom";
-import {updateMemory, fetchMemory} from "../axios/index.js";
+import {fetchMemory} from "../axios/index.js";
+import {updateMemory} from "../actions/memoryActions";
+import {useDispatch} from "react-redux";
 
 const UpdateMemory = ({id}) => {
-
+    const dispatch = useDispatch()
     const [memoryData, setMemoryData] = useState({
         title: '',
         content: '',
@@ -26,7 +28,7 @@ const UpdateMemory = ({id}) => {
     return (
         <Form onSubmit={(e) => {
             e.preventDefault()
-            updateMemory(id, memoryData)
+            dispatch(updateMemory(id,memoryData))
             navigate('/')
         }}
         >

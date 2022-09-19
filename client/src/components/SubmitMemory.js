@@ -2,7 +2,9 @@ import React, {useState} from 'react';
 import ReactFileBase64 from 'react-file-base64'
 import {Form, Button} from 'react-bootstrap'
 import {useNavigate} from "react-router-dom";
-import * as api from "../axios/index.js";
+import {useDispatch} from "react-redux";
+import {createMemory} from "../actions/memoryActions";
+
 
 const SubmitMemory = () => {
 
@@ -15,10 +17,14 @@ const SubmitMemory = () => {
 
     let navigate = useNavigate()
 
+    const dispatch = useDispatch()
+
     return (
         <Form onSubmit={(e) => {
             e.preventDefault()
-            api.createMemory(memoryData)
+
+            dispatch(createMemory(memoryData))
+
             navigate('/')
         }}
         >
