@@ -3,6 +3,7 @@ import {Card, Button} from 'react-bootstrap'
 import moment from "moment";
 import {LinkContainer} from 'react-router-bootstrap'
 import {MdModeEdit, MdDelete} from "react-icons/md";
+import {deleteMemory} from "../axios/index.js";
 
 
 const Memory = ({memory}) => {
@@ -25,12 +26,12 @@ const Memory = ({memory}) => {
                 <Button variant="primary">Go somewhere</Button>
             </Card.Body>
             <Card.Footer style={{display: 'flex', justifyContent: 'space-between'}} className='bg-white pb-0'>
-                <LinkContainer to='/' style={{cursor: 'pointer'}}>
+                <LinkContainer to={`/update/${memory._id}`} style={{cursor: 'pointer'}}>
                     <MdModeEdit size={23} color='blue'>
 
                     </MdModeEdit>
                 </LinkContainer>
-                <MdDelete size={25} color='red' style={{cursor: 'pointer'}}></MdDelete>
+                <MdDelete size={25} color='red' style={{cursor: 'pointer'}} onClick={()=> deleteMemory(memory._id)}></MdDelete>
             </Card.Footer>
         </Card>
     )

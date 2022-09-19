@@ -7,6 +7,7 @@ import CreateScreen from './Screens/CreateScreen'
 import Header from './components/Header'
 import {Container} from 'react-bootstrap'
 import Footer from './components/Footer'
+import UpdateScreen from "./Screens/UpdateScreen";
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                     <Routes>
                         <Route exact path="/" element={<HomeScreen/>}/>
                         <Route path="/create" element={<CreateScreen/>}/>
+                        <Route path="/update/:id" element={<UpdateScreen/>}/>
                     </Routes>
                 </Container>
             </main>
