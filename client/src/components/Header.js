@@ -1,12 +1,13 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 
 import {LinkContainer} from 'react-router-bootstrap';
+
+import {FiEdit} from 'react-icons/fi';
+import {MdLogin} from 'react-icons/md';
 
 const Header = () => {
 
@@ -21,8 +22,18 @@ const Header = () => {
                     <Nav>
                         <LinkContainer to='/create'>
                             <Nav.Link>
-                                <Button variant="outline-secondary">
+                                <Button variant="outline-light">
+                                    <FiEdit className='me-2 mb-1' size={17}/>
                                     Bir anı paylaş
+                                </Button>
+                            </Nav.Link>
+                        </LinkContainer>
+
+                        <LinkContainer to='/auth'>
+                            <Nav.Link>
+                                <Button variant="outline-light">
+                                    <MdLogin className='me-2 mb-1' size={20}/>
+                                    Giriş Yap
                                 </Button>
                             </Nav.Link>
                         </LinkContainer>
