@@ -3,7 +3,7 @@ import {Container, Row, Col, Form, Button} from 'react-bootstrap';
 import Message from "../components/Message";
 import {useNavigate} from "react-router-dom";
 
-import {signup} from "../actions/userActions.js";
+import {signup, signin} from "../actions/userActions.js";
 import {useDispatch, useSelector} from "react-redux";
 
 const AuthScreen = () => {
@@ -32,14 +32,23 @@ const AuthScreen = () => {
                     <Col xs={12} md={6}>
                         {
                             login ?
-                                <Form className='align-content-center mt-3'>
+                                <Form
+                                    onSubmit={(e) => {
+                                        e.preventDefault()
+                                        if (login) {
+                                            dispatch(signin(form, navigate))
+                                        }
+                                    }}
+                                    className='align-content-center mt-3'>
                                     <h1 className='text-center mb-3'>Giriş Yap</h1>
-
+                                    {error && <Message>{error}</Message>}
                                     <Form.Group>
                                         <Form.Label>Email</Form.Label>
                                         <Form.Control
                                             type='email'
-                                            placeholder='Email adresinizi girin'>
+                                            placeholder='Email adresinizi girin'
+                                            onChange={(e) =>
+                                                setForm({...form, email: e.target.value})}>
                                         </Form.Control>
                                     </Form.Group>
 
@@ -48,7 +57,9 @@ const AuthScreen = () => {
                                             <Form.Label>Şifre</Form.Label>
                                             <Form.Control
                                                 type='password'
-                                                placeholder='Şifrenizi girin'>
+                                                placeholder='Şifrenizi girin'
+                                                onChange={(e) =>
+                                                    setForm({...form, password: e.target.value})}>
                                             </Form.Control>
                                         </Form.Group>
                                     </div>

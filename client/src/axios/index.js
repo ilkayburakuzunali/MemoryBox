@@ -14,3 +14,6 @@ export const updateMemory = async (id, updatedMemory) => await API.put(`/memorie
 
 export const signUp = async (formData) => await API.post('/users/signup', formData)
 
+export const signIn = async (formData) => await API.post('/users/signin', formData)
+
+export const logOut = async (id) => await API.get(`/users/logout/${id}`)

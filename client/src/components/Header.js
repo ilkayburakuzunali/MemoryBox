@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {useDispatch} from "react-redux";
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -6,15 +7,25 @@ import Navbar from 'react-bootstrap/Navbar';
 
 import {LinkContainer} from 'react-router-bootstrap';
 
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 import {FiEdit, FiLogOut} from 'react-icons/fi';
 import {MdLogin} from 'react-icons/md';
 
-const Header = () => {
+import {logout} from "../actions/userActions";
 
+
+const Header = () => {
+    const dispatch = useDispatch()
     const location = useLocation()
+    const navigate = useNavigate()
     const [user, setUser] = useState()
+
+    const exit = async (id) => {
+        await dispatch(logout(id))
+        setUser(null)
+        navigate('/')
+    }
 
     useEffect(() => {
         if (localStorage.getItem('user') && !user) {
@@ -44,12 +55,16 @@ const Header = () => {
                                     </LinkContainer>
 
 
-                                        <Nav.Link>
-                                            <Button variant="outline-light">
-                                                <FiLogOut className='me-2 mb-1' size={17}/>
-                                                Çıkış Yap
-                                            </Button>
-                                        </Nav.Link>
+                                    <Nav.Link>
+                                        <Button
+                                            onClick={(e) => {
+                                                exit(user.user._id)
+                                            }}
+                                            variant="outline-danger">
+                                            <FiLogOut className='me-2 mb-1' size={17}/>
+                                            Çıkış Yap
+                                        </Button>
+                                    </Nav.Link>
 
 
                                 </>
